@@ -1,0 +1,33 @@
+<app-navigation [navItems]="historyNav" [activeRoute]="activeRoute"></app-navigation>
+<div class="history-container">
+  <h2><span class="username">{{ username }}</span>'s Math Problems History</h2>
+
+  @if(problemHistory.length === 0) {
+  <p class="no-history">You have no information about completed math tests yet.</p>
+  } @else {
+  @for(entry of problemHistory; track entry.id) {
+  <div>
+    <h3>{{ getOperationName(entry.operation) }} - {{ entry.timestamp | date:'MMMM d y H:mm' }}</h3>
+    <p>Result: {{ entry.result }}</p>
+    @if(entry.problems && entry.problems.length > 0) {
+    <ul>
+      @for(problem of entry.problems; track problem.problem) {
+      <li (click)="toggleCorrectAnswer(problem)" [class.show-correct]="problem.showCorrectAnswer">
+        <span [class.correct]="problem.userAnswer === problem.correctAnswer"
+          [class.incorrect]="problem.userAnswer !== problem.correctAnswer">
+          {{ problem.problem }} = {{ problem.userAnswer }}
+          @if(problem.userAnswer !== problem.correctAnswer) {
+          <span class="correct-answer" [class.visible]="problem.showCorrectAnswer">
+            ({{ problem.correctAnswer }})
+          </span>
+          }
+        </span>
+      </li>
+      }
+    </ul>
+    } @else {
+    <p>{{ entry.text }}</p>
+    }
+  </div>
+  }
+  }

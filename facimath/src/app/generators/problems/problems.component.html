@@ -1,0 +1,121 @@
+<app-navigation [navItems]="generators" [activeRoute]="activeRoute"></app-navigation>
+
+<div [class]="color">
+  <h1 class="main__title">Math problem generators</h1>
+  <nav class="problems__nav">
+    <ul class="problems__ul">
+      <li>
+        <a [routerLink]="['/problems', { operation: 'sum' }]" (click)="addClickedClass($event)">
+          <img src="summary.svg" alt="summary" />
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/problems', { operation: 'subt' }]" (click)="addClickedClass($event)">
+          <img src="subtraction.svg" alt="subtraction" />
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/problems', { operation: 'mult' }]" (click)="addClickedClass($event)">
+          <img src="multiplication.svg" alt="multiplication" />
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/problems', { operation: 'div' }]" (click)="addClickedClass($event)">
+          <img src="dividing.svg" alt="dividing" />
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/problems', { operation: 'comp' }]" (click)="addClickedClass($event)">
+          <img src="compare.svg" alt="compare" />
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/problems', { operation: 'mixed' }]" (click)="addClickedClass($event)">
+          <img src="mixed.svg" alt="mixed operations" />
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <h2 class="problems__title">
+    @if(operation === "subt"){ Subtraction }
+    @else if(operation === "sum"){Addition }
+    @else if(operation === "mult") { Multiplication }
+    @else if(operation === "div"){ Division }
+    @else if(operation === "comp"){ Comparing }
+    @else if(operation === "mixed"){ Mixed Operations }
+    @else{ Unknown Operation }
+  </h2>
+
+  <form class="main-form form" id="myForm" (ngSubmit)="generateProblems()">
+    <label for="min" class="form__label" [style.color]="color">
+      Minimum
+      <input (keydown)="onInputKeyPress($event)" value="1" type="number" placeholder="min" id="min" [(ngModel)]="min"
+        name="min" class="form__input" />
+    </label>
+    <label for="max" class="form__label">
+      Maximum
+      <input (keydown)="onInputKeyPress($event)" value="10" type="number" placeholder="max" id="max" [(ngModel)]="max"
+        name="max" class="form__input" />
+    </label>
+    <label for="count" class="form__label">
+      Count of problems (max 80)
+      <input (keydown)="onInputKeyPress($event)" value="5" type="number" placeholder="count-of-problems" id="count"
+        [(ngModel)]="count" name="count" class="form__input" />
+    </label>
+    <button id="execute" type="submit" class="form__button">Generate</button>
+    @if(problems.length > 0){
+    <button type="button" (click)="generatePDF($event)" class="form__button">Create PDF</button>
+    }
+
+    <div class="tips">
+      <p class="tips__text">*Minimum and maximum define the interval</p>
+    </div>
+  </form>
+
+
+  @if(problems.length > 0)
+  {
+  <h2 class="problems__title">Problems</h2>
+  <div class="problems__block results-div" id="problemsB">
+    <div>
+      <ul class="problems__list">
+        @for(problem of problems; track problem; let i = $index){
+        <li class="problems__list-item">
+          {{ problem }}
+          <input type="text" class="answer-input" [class.non-active]="i > 0 && !isAnswered(i - 1)"
+            (input)="checkAnswer(i, $event)" (keydown)="onInputKeyPress($event)" [attr.data-problem-index]="i"
+            [disabled]="i > 0 && !isAnswered(i - 1)">
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+
+  @if(allFieldsFilled)
+  {
+  @if(showGenerateNewButton)
+  {
+  <div class="result-container">
+    <p class="result-text">Correct answers: {{ correctAnswersCount }} of {{ problems.length }}</p>
+    <p class="motivational-message">{{ motivationalMessage }}</p>
+  </div>
+  }
+
+  @if(showCheckButton)
+  {
+  <div class="button-container">
+    <button (click)="checkAndSave()" class="form__button check-button">
+      Check & Save
+    </button>
+  </div>
+  }
+  @if(showGenerateNewButton)
+  {
+  <div class="button-container">
+    <button (click)="generateProblems()" class="form__button">Generate new problems</button>
+  </div>
+  }
+  }
+  }
+</div>

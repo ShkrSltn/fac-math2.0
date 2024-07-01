@@ -1,0 +1,40 @@
+<app-navigation [navItems]="generatorItems" [activeRoute]="activeRoute"></app-navigation>
+<main>
+  <div class="main__container">
+    <section id="functions">
+      <h3>Math Generators</h3>
+      <ul class="math-functions">
+        <li>
+          <a [routerLink]="['/problems', { operation: 'sum' }]">
+            <img src="summary.svg" alt="summary" />
+          </a>
+          <a [routerLink]="['/problems', { operation: 'sum' }]" class="link">Addition</a>
+        </li>
+        <li>
+          <a [routerLink]="['/problems', { operation: 'subt' }]">
+            <img src="subtraction.svg" alt="subtraction" />
+          </a>
+          <a [routerLink]="['/problems', { operation: 'subt' }]" class="link">Subtraction</a>
+        </li>
+        <li>
+          <a [routerLink]="['/problems', { operation: 'mult' }]">
+            <img src="multiplication.svg" alt="multiplication" />
+          </a>
+          <a [routerLink]="['/problems', { operation: 'mult' }]" class="link">Multiplication</a>
+        </li>
+        <li>
+          <a [routerLink]="['/problems', { operation: 'div' }]">
+            <img src="dividing.svg" alt="dividing" />
+          </a>
+          <a [routerLink]="['/problems', { operation: 'div' }]" class="link">Dividing</a>
+        </li>
+        <li>
+          <a [routerLink]="['/problems', { operation: 'comp' }]">
+            <img src="compare.svg" alt="compare" />
+          </a>
+          <a [routerLink]="['/problems', { operation: 'comp' }]" class="link">Compare</a>
+        </li>
+      </ul>
+    </section>
+  </div>
+</main>

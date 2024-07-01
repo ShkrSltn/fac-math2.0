@@ -1,0 +1,76 @@
+@import "../../styles/variables.scss";
+
+#index-footer {
+  background-color: $gray-text-color;
+  padding: 3rem 2rem;
+  font-family: "Montserrat", sans-serif;
+
+  .footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column-reverse;
+      gap: 2rem;
+    }
+  }
+
+  .footer__right {
+    ul {
+      display: flex;
+      gap: 1.5rem;
+
+      @media screen and (max-width: 500px) {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      li {
+        list-style: none;
+        a {
+          color: white;
+          text-decoration: none;
+          font-size: 1rem;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: $second-green;
+          }
+        }
+      }
+    }
+  }
+
+  .footer__left {
+    p {
+      color: white;
+      font-size: 1rem;
+    }
+  }
+
+  .green {
+    color: $main-green;
+    font-weight: 700;
+    background: linear-gradient(90deg, #72d2ff, #25d389, #8cd237, #6371ce);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 5s ease infinite;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -1,0 +1,54 @@
+<div class="register-container">
+  <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+    <img class="logo-login" src="logo.svg" alt="logo">
+    <h2>Register</h2>
+    <div>
+      <label for="firstname">First Name:</label>
+      <input type="text" id="firstname" name="firstname" [(ngModel)]="registerData.firstName" required
+        #firstName="ngModel" />
+      @if (firstName.invalid && firstName.touched) {
+      <div class="error">First name is required</div>
+      }
+    </div>
+    <div>
+      <label for="lastname">Last Name:</label>
+      <input type="text" id="lastname" name="lastname" [(ngModel)]="registerData.lastName" required
+        #lastName="ngModel" />
+      @if (lastName.invalid && lastName.touched) {
+      <div class="error">Last name is required</div>
+      }
+    </div>
+    <div>
+      <label for="login">Login:</label>
+      <input type="text" id="login" name="login" [(ngModel)]="registerData.login" required minlength="6"
+        #login="ngModel" />
+      @if (login.invalid && login.touched) {
+      <div class="error">Login is required and must be at least 6 characters long</div>
+      }
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="registerData.password" required minlength="8"
+        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}" #password="ngModel" />
+      @if (password.touched) {
+      <div [ngClass]="{'error': password.errors?.['required'], 'success': !password.errors?.['required']}">
+        Password is required
+      </div>
+      <div [ngClass]="{'error': password.errors?.['minlength'], 'success': !password.errors?.['minlength']}">
+        Password must be at least 8 characters long
+      </div>
+      <div [ngClass]="{'error': password.errors?.['pattern'], 'success': !password.errors?.['pattern']}">
+        Password must contain at least one uppercase letter, one lowercase letter, and one number
+      </div>
+      }
+    </div>
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    @if(registrationError) {
+    <div class="error-message">
+      {{ registrationError }}
+    </div>
+    }
+    <p class="login-link">Already have an account? <a routerLink="/login">Login here</a></p>
+  </form>
+
+</div>

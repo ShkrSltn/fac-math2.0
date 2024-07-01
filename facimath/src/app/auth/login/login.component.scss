@@ -1,0 +1,109 @@
+@import "../../../styles/variables.scss";
+
+.logo-login {
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+  height: 100px;
+}
+
+.login-container {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $main-green;
+  padding: 0;
+  margin: 0;
+}
+
+form {
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  color: $gray-text-color;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+div {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: $gray-text-color;
+}
+
+input {
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box; // Added
+
+  &:focus {
+    outline: none;
+    border-color: $main-green;
+  }
+}
+
+button {
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  background-color: $main-green;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($main-green, 10%);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.error-message {
+  color: #ff3860;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.register-link {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+
+  a {
+    color: $main-green;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

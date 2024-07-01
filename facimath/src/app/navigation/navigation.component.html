@@ -1,0 +1,32 @@
+<header class="header__container">
+  <nav>
+    <ul class="nav__ul">
+      <li id="logo">
+        <a routerLink="/home"><img src="assets/logo.svg" alt="logo" /></a>
+      </li>
+      <div class="nav-links" [class.active]="isMenuOpen">
+        <ng-container>
+          @for(item of navItems; track item.icon){
+          <li>
+            <a [routerLink]="[item.path]" [class.active]="item.path === activeRoute">
+              {{ item.label }}
+            </a>
+          </li>
+          }
+          @if(showLogout){
+          <li>
+            <a class="logout-link" (click)="logout()">
+              Logout
+            </a>
+          </li>
+          }
+        </ng-container>
+      </div>
+      <div class="hamburger" [class.active]="isMenuOpen" (click)="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </ul>
+  </nav>
+</header>
