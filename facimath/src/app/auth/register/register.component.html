@@ -5,15 +5,15 @@
     <div>
       <label for="firstname">First Name:</label>
       <input type="text" id="firstname" name="firstname" [(ngModel)]="registerData.firstName" required
-        #firstName="ngModel" />
+        #firstName="ngModel" (focus)="firstName.control.markAsTouched()" />
       @if (firstName.invalid && firstName.touched) {
       <div class="error">First name is required</div>
       }
     </div>
     <div>
       <label for="lastname">Last Name:</label>
-      <input type="text" id="lastname" name="lastname" [(ngModel)]="registerData.lastName" required
-        #lastName="ngModel" />
+      <input type="text" id="lastname" name="lastname" [(ngModel)]="registerData.lastName" required #lastName="ngModel"
+        (focus)="lastName.control.markAsTouched()" />
       @if (lastName.invalid && lastName.touched) {
       <div class="error">Last name is required</div>
       }
@@ -21,7 +21,7 @@
     <div>
       <label for="login">Login:</label>
       <input type="text" id="login" name="login" [(ngModel)]="registerData.login" required minlength="6"
-        #login="ngModel" />
+        #login="ngModel" (focus)="login.control.markAsTouched()" />
       @if (login.invalid && login.touched) {
       <div class="error">Login is required and must be at least 6 characters long</div>
       }
@@ -29,7 +29,7 @@
     <div>
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" [(ngModel)]="registerData.password" required minlength="8"
-        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}" #password="ngModel" />
+        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}" #password="ngModel" (focus)="password.control.markAsTouched()" />
       @if (password.touched) {
       <div [ngClass]="{'error': password.errors?.['required'], 'success': !password.errors?.['required']}">
         Password is required
@@ -50,5 +50,4 @@
     }
     <p class="login-link">Already have an account? <a routerLink="/login">Login here</a></p>
   </form>
-
 </div>

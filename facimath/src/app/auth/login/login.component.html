@@ -4,20 +4,24 @@
     <h2>Login</h2>
     <div>
       <label for="login">Login:</label>
-      <input type="text" id="login" name="login" [(ngModel)]="loginData.login" required #login="ngModel" />
+      <input type="text" id="login" name="login" [(ngModel)]="loginData.login" required #login="ngModel"
+        (focus)="login.control.markAsTouched()" />
       @if (login.invalid && login.touched) {
       <div class="error-message">Please enter a valid login</div>
       }
     </div>
     <div>
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" [(ngModel)]="loginData.password" required
-        #password="ngModel" />
+      <input type="password" id="password" name="password" [(ngModel)]="loginData.password" required #password="ngModel"
+        (focus)="password.control.markAsTouched()" />
       @if (password.invalid && password.touched) {
       <div class="error-message">Password is required</div>
       }
     </div>
     <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    @if (loginError) {
+    <div class="error-message">{{ loginError }}</div>
+    }
     <p class="register-link">Don't have an account? <a routerLink="/register">Register here</a></p>
   </form>
 </div>

@@ -14,6 +14,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LoginComponent {
   loginData = { login: '', password: '' };
+  loginError: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -31,7 +32,8 @@ export class LoginComponent {
             }
           },
           (error) => {
-            console.log('Ошибка авторизации', error);
+            console.log('Authorization error', error);
+            this.loginError = 'Incorrect login or password';
           }
         );
     }
