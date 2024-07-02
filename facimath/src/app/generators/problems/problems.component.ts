@@ -53,8 +53,7 @@ export class ProblemsComponent implements OnInit {
     private problemGeneratorService: ProblemGeneratorService,
     private route: ActivatedRoute,
     private renderer: Renderer2,
-    private router: Router,
-    private notificationService: NotificationService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -122,10 +121,25 @@ export class ProblemsComponent implements OnInit {
       );
     }
     this.allProblemsSolved = false;
-    this.answers = [];
+    this.answers = new Array(this.problems.length).fill(null);
     this.allFieldsFilled = false;
     this.showCheckButton = false;
     this.showGenerateNewButton = false;
+    this.correctAnswersCount = 0;
+    this.motivationalMessage = '';
+
+    // Очистка полей ввода и установка состояния
+    setTimeout(() => {
+      const inputs = document.querySelectorAll(
+        '.answer-input'
+      ) as NodeListOf<HTMLInputElement>;
+      inputs.forEach((input, index) => {
+        input.value = '';
+        input.style.backgroundColor = '';
+        input.disabled = index !== 0; // Разблокируем только первое поле
+      });
+      this.checkAllFieldsFilled(); // Проверяем состояние полей
+    }, 0);
   }
 
   addClickedClass(event: Event) {
@@ -170,7 +184,7 @@ export class ProblemsComponent implements OnInit {
 
     this.saveProblems();
 
-    // Добавляем мотивирующее сообщение
+    // Добавляем мотивирующее сообение
     const percentage = (this.correctAnswersCount / this.problems.length) * 100;
 
     if (percentage === 100) {
@@ -221,21 +235,15 @@ export class ProblemsComponent implements OnInit {
       this.problemGeneratorService.saveProblems(payload).subscribe(
         (response) => {
           console.log('Problems successfully saved', response);
-          this.notificationService.show(
-            `Problems successfully saved. Result: ${result}`,
-            'success'
-          );
+          alert(`Problems successfully saved. Result: ${result}`);
         },
         (error) => {
           console.error('Error saving problems', error);
-          this.notificationService.show(
-            'An error occurred while saving problems',
-            'error'
-          );
+          alert('An error occurred while saving problems');
         }
       );
     } else {
-      this.notificationService.show('No problems to save', 'error');
+      alert('No problems to save');
     }
   }
 
@@ -335,7 +343,7 @@ export class ProblemsComponent implements OnInit {
       '.answer-input'
     ) as NodeListOf<HTMLInputElement>;
     this.allFieldsFilled = Array.from(inputs).every(
-      (input) => input.value.trim() !== ''
+      (input, index) => !input.disabled && input.value.trim() !== ''
     );
     this.showCheckButton = this.allFieldsFilled;
     this.allProblemsSolved = this.allFieldsFilled;
@@ -343,12 +351,22 @@ export class ProblemsComponent implements OnInit {
 
   checkAnswer(index: number, event: Event): void {
     const input = event.target as HTMLInputElement;
-    const userAnswer = parseInt(input.value);
+    const userAnswer = input.value.trim() === '' ? null : parseInt(input.value);
     const problem = this.problems[index];
     const correctAnswer = this.calculateCorrectAnswer(problem);
 
-    this.answers[index] = input.value ? Number(input.value) : null;
+    this.answers[index] = userAnswer;
     this.checkAllFieldsFilled();
+
+    // Разблокируем следующее поле, если текущее заполнено
+    if (userAnswer !== null && index < this.problems.length - 1) {
+      const nextInput = document.querySelector(
+        `[data-problem-index="${index + 1}"]`
+      ) as HTMLInputElement;
+      if (nextInput) {
+        nextInput.disabled = false;
+      }
+    }
   }
 
   isAnswered(index: number): boolean {
