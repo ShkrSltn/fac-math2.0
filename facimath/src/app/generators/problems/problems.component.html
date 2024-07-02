@@ -5,32 +5,33 @@
   <nav class="problems__nav">
     <ul class="problems__ul">
       <li>
-        <a [routerLink]="['/problems', { operation: 'sum' }]" (click)="addClickedClass($event)">
+        <a [routerLink]="['/problems', { operation: 'sum' }]" (click)="addClickedClass($event)" title="Addition">
           <img src="summary.svg" alt="summary" />
         </a>
       </li>
       <li>
-        <a [routerLink]="['/problems', { operation: 'subt' }]" (click)="addClickedClass($event)">
+        <a [routerLink]="['/problems', { operation: 'subt' }]" (click)="addClickedClass($event)" title="Subtraction">
           <img src="subtraction.svg" alt="subtraction" />
         </a>
       </li>
       <li>
-        <a [routerLink]="['/problems', { operation: 'mult' }]" (click)="addClickedClass($event)">
+        <a [routerLink]="['/problems', { operation: 'mult' }]" (click)="addClickedClass($event)" title="Multiplication">
           <img src="multiplication.svg" alt="multiplication" />
         </a>
       </li>
       <li>
-        <a [routerLink]="['/problems', { operation: 'div' }]" (click)="addClickedClass($event)">
+        <a [routerLink]="['/problems', { operation: 'div' }]" (click)="addClickedClass($event)" title="Division">
           <img src="dividing.svg" alt="dividing" />
         </a>
       </li>
       <li>
-        <a [routerLink]="['/problems', { operation: 'comp' }]" (click)="addClickedClass($event)">
+        <a [routerLink]="['/problems', { operation: 'comp' }]" (click)="addClickedClass($event)" title="Comparing">
           <img src="compare.svg" alt="compare" />
         </a>
       </li>
       <li>
-        <a [routerLink]="['/problems', { operation: 'mixed' }]" (click)="addClickedClass($event)">
+        <a [routerLink]="['/problems', { operation: 'mixed' }]" (click)="addClickedClass($event)"
+          title="Mixed Operations">
           <img src="mixed.svg" alt="mixed operations" />
         </a>
       </li>
@@ -90,7 +91,13 @@
       </ul>
     </div>
   </div>
-
+  }
+  @else
+  {
+  <div class="no-problems-message">
+    <p>No problems generated yet. Click the "Generate" button to create new problems.</p>
+  </div>
+  }
 
   @if(allFieldsFilled)
   {
@@ -117,5 +124,5 @@
   </div>
   }
   }
-  }
+
 </div>

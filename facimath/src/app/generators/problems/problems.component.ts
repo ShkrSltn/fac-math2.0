@@ -63,10 +63,10 @@ export class ProblemsComponent implements OnInit {
       this.applyColor(this.color);
     });
 
-    // Если параметры маршрута пусты, генерируем задачи на сложение
-    if (!this.route.snapshot.params['operation']) {
-      this.generateProblems();
-    }
+    // Удаляем автоматическую генерацию задач
+    // if (!this.route.snapshot.params['operation']) {
+    //   this.generateProblems();
+    // }
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -230,8 +230,6 @@ export class ProblemsComponent implements OnInit {
         operation: this.operation,
         timestamp: new Date().toISOString(),
       };
-
-      console.log('Перед вызовом notificationService.show');
       this.problemGeneratorService.saveProblems(payload).subscribe(
         (response) => {
           console.log('Problems successfully saved', response);

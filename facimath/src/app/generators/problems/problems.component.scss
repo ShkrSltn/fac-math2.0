@@ -259,3 +259,11 @@ li[data-problem-index] {
   max-width: 80%;
   margin: 0 auto;
 }
+
+.no-problems-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 2rem;
+  font-family: "Roboto Mono", monospace;
+}
